@@ -8,6 +8,7 @@ var browser = require("browser-sync");
 var plumber = require("gulp-plumber");
 var runSequence = require("run-sequence");
 var extender = require("gulp-html-extend");
+var imagemin = require("gulp-imagemin");
 
 // clean
 // ビルドする前のファイルを削除する
@@ -76,6 +77,15 @@ gulp.task("js", function() {
   .pipe(browser.reload({stream:true}));
 });
 
+// image
+// 画像ファイルを圧縮
+gulp.task("image", function() {
+  gulp.src("dev/images/**")
+  .pipe(imagemin())
+  .pipe(gulp.dest("build/images"))
+  .pipe(browser.reload({stream:true}));
+});
+
 // copy
 // htmlファイルをコピー
 gulp.task("copy_html", function() {
@@ -112,5 +122,5 @@ gulp.task("watch", function() {
 // gulp task
 // 「gulp」コマンドによる処理を直列処理で実行
 gulp.task("default", function() {
-  runSequence("clean", ["extend", "sass", "babel", "js", "copy_html", "copy_img"], "watch", "server");
+  runSequence("clean", ["extend", "sass", "babel", "js", "image", "copy_html", "copy_img"], "watch", "server");
 });

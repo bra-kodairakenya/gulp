@@ -20,6 +20,10 @@ https://www.npmjs.com/package/gulp-sass
 CSSファイルを圧縮
 https://www.npmjs.com/package/gulp-minify-css
 
+###gulp-image-min
+画像ファイルを圧縮
+https://www.npmjs.com/package/gulp-imagemin
+
 ###gulp-uglify
 JSファイルを圧縮
 https://www.npmjs.com/package/gulp-uglify
