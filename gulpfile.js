@@ -3,6 +3,7 @@ var babel = require("gulp-babel");
 var sass = require("gulp-sass");
 var minifyCss = require("gulp-minify-css");
 var uglify = require("gulp-uglify");
+var notify = require("gulp-notify");
 var browser = require("browser-sync");
 var plumber = require("gulp-plumber");
 var runSequence = require("run-sequence");
@@ -29,7 +30,9 @@ gulp.task("server", function() {
 // HTMLファイルのテンプレート化
 gulp.task("extend", function() {
   gulp.src(["dev/**/*.html", "!dev/include/**/*.html"])
-  .pipe(plumber())
+  .pipe(plumber({
+      errorHandler: notify.onError("Error: <%= error.message %>") //<-
+    }))
   .pipe(extender({annotations:false,verbose:false}))
   .pipe(gulp.dest('build'))
   .pipe(browser.reload({stream:true}));
@@ -39,7 +42,9 @@ gulp.task("extend", function() {
 // es6をjsファイルに変換
 gulp.task("babel", function() {
   gulp.src("dev/js/**/*.es6")
-  .pipe(plumber())
+  .pipe(plumber({
+      errorHandler: notify.onError("Error: <%= error.message %>") //<-
+    }))
   .pipe(babel())
   .pipe(uglify())
   .pipe(gulp.dest("build/js"))
@@ -50,7 +55,9 @@ gulp.task("babel", function() {
 // sassファイルをcssに変換かつ圧縮
 gulp.task("sass", function() {
   gulp.src("dev/sass/**/*.scss")
-  .pipe(plumber())
+  .pipe(plumber({
+      errorHandler: notify.onError("Error: <%= error.message %>") //<-
+    }))
   .pipe(sass())
   .pipe(minifyCss({compatibility: 'ie8'}))
   .pipe(gulp.dest("build/css"))
@@ -61,7 +68,9 @@ gulp.task("sass", function() {
 // jsファイルを圧縮
 gulp.task("js", function() {
   gulp.src("dev/js/**/*.js")
-  .pipe(plumber())
+  .pipe(plumber({
+      errorHandler: notify.onError("Error: <%= error.message %>") //<-
+    }))
   .pipe(uglify())
   .pipe(gulp.dest("build/js"))
   .pipe(browser.reload({stream:true}));
@@ -71,14 +80,18 @@ gulp.task("js", function() {
 // htmlファイルをコピー
 gulp.task("copy_html", function() {
   gulp.src("dev/*.html")
-  .pipe(plumber())
+  .pipe(plumber({
+      errorHandler: notify.onError("Error: <%= error.message %>") //<-
+    }))
   .pipe(gulp.dest("build"))
   .pipe(browser.reload({stream:true}));
 });
 // images/以下をコピー
 gulp.task("copy_img", function() {
   gulp.src("dev/images/**")
-  .pipe(plumber())
+  .pipe(plumber({
+      errorHandler: notify.onError("Error: <%= error.message %>") //<-
+    }))
   .pipe(gulp.dest("build/images"))
   .pipe(browser.reload({stream:true}));
 });
