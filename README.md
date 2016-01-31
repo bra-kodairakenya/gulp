@@ -24,6 +24,9 @@ https://www.npmjs.com/package/gulp-minify-css
 JSファイルを圧縮
 https://www.npmjs.com/package/gulp-uglify
 
+###gulp-notify
+http://whiskers.nukos.kitchen/2014/12/06/gulp-notify.html
+
 ###browser-sync
 ローカルサーバーを起動
 https://www.browsersync.io/docs/gulp/
