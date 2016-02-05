@@ -1,7 +1,7 @@
 var gulp = require("gulp");
 var babel = require("gulp-babel");
 var sass = require("gulp-sass");
-var minifyCss = require("gulp-minify-css");
+var pleeease = require("gulp-pleeease");
 var uglify = require("gulp-uglify");
 var notify = require("gulp-notify");
 var browser = require("browser-sync");
@@ -60,7 +60,12 @@ gulp.task("sass", function() {
       errorHandler: notify.onError("Error: <%= error.message %>") //<-
     }))
   .pipe(sass())
-  .pipe(minifyCss({compatibility: 'ie8'}))
+  .pipe(pleeease({
+    sass: false,
+    autoprefixer:true,
+    minifier: true,
+    mqpacker: true
+  }))
   .pipe(gulp.dest("build/css"))
   .pipe(browser.reload({stream:true}));
 });
